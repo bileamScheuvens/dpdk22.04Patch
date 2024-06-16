@@ -582,7 +582,7 @@ kni_net_rx(struct kni_dev *kni)
  * Deal with a transmit timeout.
  */
 static void
-kni_net_tx_timeout(struct net_device *dev)
+kni_net_tx_timeout(struct net_device *dev, unsigned int txqueue)
 {
 	struct kni_dev *kni = netdev_priv(dev);
 

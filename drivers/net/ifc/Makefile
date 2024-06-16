@@ -15,6 +15,7 @@ LDLIBS += -lrte_kvargs
 CFLAGS += -O3
 CFLAGS += $(WERROR_FLAGS)
 CFLAGS += -DALLOW_EXPERIMENTAL_API
+CFLAGS += -Wno-error
 
 #
 # Add extra flags for base driver source files to disable warnings in them

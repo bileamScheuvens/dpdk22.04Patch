@@ -229,6 +229,7 @@ CFLAGS += -DALLOW_EXPERIMENTAL_API
 
 CFLAGS += -O3
 CFLAGS += $(WERROR_FLAGS)
+CFLAGS += -Wno-error=array-bounds
 
 LDLIBS += -lm
 

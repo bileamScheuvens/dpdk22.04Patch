@@ -9,6 +9,7 @@
 #include <linux/netdevice.h>
 #include <linux/etherdevice.h>
 #include <linux/pci.h>
+#include <linux/random.h>
 #include <linux/kthread.h>
 #include <linux/rwsem.h>
 #include <linux/mutex.h>
@@ -42,6 +43,17 @@ static uint32_t multiple_kthread_on;
 /* Default carrier state for created KNI network interfaces */
 static char *carrier;
 uint32_t dflt_carrier;
+
+void spoof_random_ether_addr(u8 *addr) {
+	// Generate 6 random bytes for the MAC address
+	get_random_bytes(addr, ETH_ALEN);
+
+	// Ensure it's a unicast address: clear the multicast bit
+	addr[0] &= 0xfe;
+
+	// Ensure it's locally administered: set the local bit
+	addr[0] |= 0x02;
+}
 
 #define KNI_DEV_IN_USE_BIT_NUM 0 /* Bit number for device in use */
 
@@ -454,7 +466,7 @@ kni_ioctl_create(struct net *net, uint32_t ioctl_num,
 			 * Generate random mac address. eth_random_addr() is the
 			 * newer version of generating mac address in kernel.
 			 */
-			random_ether_addr(net_dev->dev_addr);
+			spoof_random_ether_addr(net_dev->dev_addr);
 	}
 
 	if (dev_info.mtu)

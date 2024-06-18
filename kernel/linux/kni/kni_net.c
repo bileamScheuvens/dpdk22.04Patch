@@ -373,7 +373,9 @@ kni_net_rx_normal(struct kni_dev *kni)
 		skb->ip_summed = CHECKSUM_UNNECESSARY;
 
 		/* Call netif interface */
-		netif_rx_ni(skb);
+		// nonblocking version not available for whatever reason
+		// pray that this is not a problem
+		netif_rx(skb);
 
 		/* Update statistics */
 		kni->stats.rx_bytes += len;

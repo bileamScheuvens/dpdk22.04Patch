@@ -10,9 +10,9 @@
 #   - define TOOLCHAIN_ASFLAGS variable (overridden by cmdline value)
 #
 
-CC        = $(CROSS)gcc
-KERNELCC  = $(CROSS)gcc
-CPP       = $(CROSS)cpp
+CC        = $(CROSS)gcc-12
+KERNELCC  = $(CROSS)gcc-12
+CPP       = $(CROSS)cpp-12
 # for now, we don't use as but nasm.
 # AS      = $(CROSS)as
 AS        = nasm
@@ -27,7 +27,7 @@ GCOV      = $(CROSS)gcov
 ifeq ("$(origin CC)", "command line")
 HOSTCC    = $(CC)
 else
-HOSTCC    = gcc
+HOSTCC    = gcc-12
 endif
 HOSTAS    = as
 
